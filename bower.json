@@ -1,0 +1,8 @@
+{
+  "name": "forty-datetime-directive",
+  "description": "Date and time directive",
+  "main": "dist/forty-datetime.js",
+  "version": "0.0.0",
+  "dependencies": {}
+}
+
