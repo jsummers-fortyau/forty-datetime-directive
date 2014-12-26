@@ -1,9 +1,3 @@
-#class Fortydatetime
-#  constructor: ->
-#
-#root = exports ? window
-#root.Fortydatetime = Fortydatetime
-
 angular.module('fortyDate')
   .directive "timeWithFormat", ($window, utils) ->
     # Formatter for birthdays and dates
