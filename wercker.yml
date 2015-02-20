@@ -1,24 +1,13 @@
 box: olger/box-yeoman@0.5.1
-# Build definition
 build:
-  # The steps that will be executed on build
   steps:
     - wercker/npm-install
     - olger/yeoman-bower-install
     - wercker/grunt:
         tasks: default
 
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
-    #- script:
-    #    name: echo nodejs information
-    #    code: |
-    #      echo "node version $(node -v) running"
-    #      echo "npm version $(npm -v) running"
-
-
   after-steps:
-      - hipchat-notify:
-        token: $HIPCHAT_TOKEN
-        room-id: 1245584
-        from-name: wercker
+    - hipchat-notify:
+      token: $HIPCHAT_TOKEN
+      room-id: 1245584
+      from-name: wercker
