@@ -18,7 +18,7 @@ build:
 
 
   after-steps:
-    - hipchat-notify:
-      token: $HIPCHAT_TOKEN
-      room-id: 1245584
-      from-name: wercker
+      - hipchat-notify:
+        token: $HIPCHAT_TOKEN
+        room-id: 1245584
+        from-name: wercker
