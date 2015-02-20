@@ -3,14 +3,22 @@ angular.module('fortyDate')
     # Formatter for birthdays and dates
     require: "ngModel"
     restrict: "A"
+
     link: (scope, elem, attrs, ngModel) ->
 
       moment = $window.moment
+      scope.valueType = scope.valueType || 'date'
 
       # date_regex = /(\d{2})\/?(\d{2})\/?(\d{4})/g
       date_format = 'MM/DD/YYYY'
       maxDate = if attrs.maxDate then moment(attrs.maxDate.replace(/"/g, '')) else moment().add(1, 'year')
       minDate = if attrs.minDate then moment(attrs.minDate.replace(/"/g, '')) else moment().subtract(150, 'year')
+
+      ###*
+        * Watch changes to the model
+        ###
+      scope.$watch 'model', (v, u)->
+        return
 
       validDateFormat = (date_obj, date)->
         if maxDate.toDate() > date_obj && minDate.toDate() < date_obj
@@ -29,7 +37,6 @@ angular.module('fortyDate')
         else
           return val
 
-
       ngModel.$formatters.push (val)->
         return val if val is undefined || val==''
 
@@ -38,12 +45,11 @@ angular.module('fortyDate')
         return validDateFormat(date_obj, date)
 
 
-      # Update the
       ngModel.$parsers.push (val)->
         return val if val is undefined || val==''
 
         mask = '__/__/____'
-        date_pieces = []              # Empty array
+        date_pieces = []
         transformed_input = val
 
         # Find if there are slashes and iterate and update appropriately
@@ -60,7 +66,7 @@ angular.module('fortyDate')
 
         stripped_input = transformed_input.replace(/\D/g, '').slice(0,8)
 
-        date_pieces = []              # Reset array
+        date_pieces = []
         # Some simple validation as we type, basically just making sure
         # that the month and day are in range
         # Year/the entire date will be validated once we hit the final value
