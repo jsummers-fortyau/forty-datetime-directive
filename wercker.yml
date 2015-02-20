@@ -6,15 +6,15 @@ build:
     - wercker/npm-install
     - olger/yeoman-bower-install
     - wercker/grunt:
-        tasks: test build
+        tasks: default
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
-    - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
+    #- script:
+    #    name: echo nodejs information
+    #    code: |
+    #      echo "node version $(node -v) running"
+    #      echo "npm version $(npm -v) running"
 
 
   after-steps:
