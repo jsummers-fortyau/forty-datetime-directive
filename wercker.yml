@@ -5,9 +5,8 @@ build:
     - olger/yeoman-bower-install
     - wercker/grunt:
         tasks: default
-
   after-steps:
     - hipchat-notify:
-      token: $HIPCHAT_TOKEN
-      room-id: 1245584
-      from-name: wercker
+        token: $HIPCHAT_TOKEN
+        room-id: 1245584
+        from-name: wercker
