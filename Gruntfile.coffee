@@ -29,13 +29,12 @@ module.exports = (grunt) ->
         src: '<%=yeoman.dist %>/forty-datetime.js'
         dest: '<%=yeoman.dist %>/forty-datetime.min.js'
 
-    #TODO Add testing
-    mochaTest:
-       test:
-         options:
-           reporter: 'spec'
-           compilers: 'coffee:coffee-script'
-         src: ['test/**/*.coffee']
+#    mochaTest:
+#       test:
+#         options:
+#           reporter: 'spec'
+#           compilers: 'coffee:coffee-script'
+#         src: ['test/**/*.coffee']
 
     karma:
        options:
@@ -47,7 +46,8 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks('grunt-karma')
 
     grunt.registerTask 'default', [
-      'mochaTest'
+#      'mochaTest'
+      'karma'
       'coffee'
       'uglify'
     ]
