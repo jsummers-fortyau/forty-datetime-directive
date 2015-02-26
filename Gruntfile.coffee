@@ -54,3 +54,9 @@ module.exports = (grunt) ->
       'uglify'
       'watch'
     ]
+
+    grunt.registerTask 'defaultci', [
+      'karma'
+      'coffee'
+      'uglify'
+    ]

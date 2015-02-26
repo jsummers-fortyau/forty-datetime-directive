@@ -4,7 +4,7 @@ build:
     - wercker/npm-install
     - olger/yeoman-bower-install
     - wercker/grunt:
-        tasks: default
+        tasks: defaultci
   after-steps:
     - hipchat-notify:
         token: $HIPCHAT_TOKEN
