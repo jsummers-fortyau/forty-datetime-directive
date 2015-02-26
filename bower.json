@@ -2,7 +2,7 @@
   "name": "forty-datetime-directive",
   "description": "Date and time directive",
   "main": "dist/forty-datetime.js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "ignore": [
     "**/.*",
     "_config.yml",
