@@ -1,12 +1,11 @@
 {
   "name": "forty-datetime-directive",
   "version": "0.2.0",
-  "dependencies": {},
   "devDependencies": {
-    "chai": "*",
     "grunt": "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "^0.9.0",
     "grunt-mocha-test": "*",
     "karma": "^0.12.16",
