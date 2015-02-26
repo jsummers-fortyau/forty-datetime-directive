@@ -3,6 +3,16 @@
   "description": "Date and time directive",
   "main": "dist/forty-datetime.js",
   "version": "0.3.0",
+  "ignore": [
+    "**/.*",
+    "_config.yml",
+    "CNAME",
+    "composer.json",
+    "CONTRIBUTING.md",
+    "docs",
+    "js/tests",
+    "wercker.yml"
+  ],
   "dependencies": {
     "angular": "~1.2.0",
     "momentjs": "~2.9.0",
