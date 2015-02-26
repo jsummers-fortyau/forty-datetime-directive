@@ -9,12 +9,12 @@ angular.module('fortyDate', [])
     disabled: '='
   template: '<div class="input-group"><input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" ng-disabled="disabled" /><span class="input-group-btn"><button type="button" ng-disabled="disabled" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></div>'
   link: (scope, elem, attrs, ngModel)->
-    allowed_key_codes = [96,97,98,99,100,101,102,103,104,105]
-    scope.opened = false
-    scope.format = 'MM/dd/yyyy'
-    delimiter = '/'
-    mask = scope.format.toLowerCase().replace(/\w/g, '_')
-    ngModelCtrl = angular.element(elem.find('input')).data('$ngModelController')
+
+    # PRIVATE VAR ======================================================================================================
+    allowed_key_codes = undefined
+    delimiter = undefined
+    mask = undefined
+    ngModelCtrl = undefined
 
     ###*
       * Initialize the
@@ -22,6 +22,11 @@ angular.module('fortyDate', [])
       * @return {Boolean} true if success
       ###
     init = ()->
+      allowed_key_codes = [96,97,98,99,100,101,102,103,104,105]
+      delimiter = '/'
+      mask = scope.format.toLowerCase().replace(/\w/g, '_')
+      ngModelCtrl = angular.element(elem.find('input')).data('$ngModelController')
+
       if !_.isDate scope.date
         ngModelCtrl.$setViewValue(mask)
       return true
@@ -71,21 +76,27 @@ angular.module('fortyDate', [])
       elem.find('input')[0].value.substr(0,index).replace(/\w/g, '').length
 
 
+    ###*
+      * Handle deleting a value while retaining the mask
+      *
+      * @param {Element}
+      * @param {Number} int representing which 'way' to delete the string
+      * @return {Undefined}
+      ###
     deleteInMask = (el, direction=0)->
-      # backspace key at beginning of field
-      return if el.selectionStart is 0 and
-        direction is 0 and
-        el.selectionStart == el.selectionEnd
-      # delete key at end of field
-      return if el.selectionStart is scope.format.length && direction is 1
+      return if el.selectionStart is 0 and                                        # backspace key at beginning of field
+        direction is 0 and                                                        # ...and we are a single caret and not
+        el.selectionStart == el.selectionEnd                                      # a full-on selection
 
-      char_array = el.value.split('')
+      return if el.selectionStart is scope.format.length && direction is 1        # delete key at end of field
+
+      #char_array = el.value.split('')
       char_raw = el.value.replace(/\W/g, '').split('')
 
       pos = el.selectionStart
       if el.selectionEnd is el.selectionStart
         pos = pos - 1
-      console.log el.selectionStart
+
       delimiter_cnt = getDelimiterCountAtIndex(pos+direction)
       delimiter_cnt_start = getDelimiterCountAtIndex(el.selectionStart)
       delimiter_cnt_end = getDelimiterCountAtIndex(el.selectionEnd)
@@ -97,11 +108,19 @@ angular.module('fortyDate', [])
       ngModelCtrl.$setViewValue(applyMaskToArray(char_raw).join(''))
       ngModelCtrl.$render()
 
+      # Reset the caret position to where it should be after a delete or backspace
       caret_pos = pos+direction
       setCaretPosition(elem.find('input')[0],caret_pos)
       return
 
 
+    ###*
+      * Update the string with the new value and reapply the mask to the input value
+      *
+      * @param {Element}
+      * @param {String}
+      * @return {String} a string of the new input value with the mask applied
+      ###
     updateMask = (el, char)->
       char_array = el.value.split('')
       pos = el.selectionStart
@@ -126,6 +145,10 @@ angular.module('fortyDate', [])
       setCaretPosition(elem.find('input')[0],insert_pos+caret_pos)
 
       return new_value
+
+
+    # EVENT LISTENERS ==================================================================================================
+
     elem.find('input').on 'paste', (event)->
       event.preventDefault()
       this.value = event.clipboardData.getData("text/plain")
@@ -137,7 +160,6 @@ angular.module('fortyDate', [])
         deleteInMask(this, if key is 8 then 0 else 1)
         event.preventDefault()
         return false
-
 
     elem.find('input').on 'keypress', (event)->
       key = event.keyCode || event.which
@@ -166,10 +188,26 @@ angular.module('fortyDate', [])
         elem.removeClass('has-error')
 
 
+    # SCOPE ============================================================================================================
+    scope.opened = false
+    scope.format = 'MM/dd/yyyy'
+
+
+    ###*
+      * Open the datepicker dropdown
+      *
+      * @param {Event} click event
+      * @return {undefined}
+      ###
     scope.open = ($event)->
-      $event.preventDefault();
-      $event.stopPropagation();
-      scope.opened = !scope.opened;
+      $event.preventDefault()
+      $event.stopPropagation()
+      scope.opened = !scope.opened
+      return
+
+
+    # Initialize the things
+    init()
 
     ngModelCtrl.$parsers.unshift (data)->
       #View -> Model
@@ -185,7 +223,6 @@ angular.module('fortyDate', [])
       #ngModelCtrl.$setViewValue($filter('date')(data, scope.format))
       return data
 
-    init()
   }
 )
 
