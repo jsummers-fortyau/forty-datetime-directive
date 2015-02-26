@@ -6,6 +6,7 @@ iScope = undefined
 compile = undefined
 rootScope = undefined
 httpBackend = undefined
+defaultMask = undefined
 
 # Standardize
 dateFix = {
@@ -24,6 +25,9 @@ describe 'forty-date-picker: ', ->
       $compile
       $httpBackend
     ) ->
+
+    defaultMask = ()->
+      '__/__/____'
 
     compile = $compile
     scope = $rootScope.$new()
@@ -80,18 +84,41 @@ describe 'forty-date-picker: ', ->
     it 'should have a default value of the mask if no date is set', ->
       compile(ele)(scope)
       scope.$digest()
-
-    it 'should', ->
       $input = $('input', ele)
-      console.log $input[0].value
-      console.log $input.val()
+      # TODO hardcoded format for the sake of time
+      expect($input[0].value).toBe(defaultMask())
+
+    it 'should have a date if one is provided', ->
+
+    it 'should not allow letters into the date', ->
+      compile(ele)(scope)
+      scope.$digest()
+      $input = $('input', ele)
+
       $input.focus().trigger(jQuery.Event( {
         type: 'keypress'
-        keyCode: 111
-        which: 111
-        charCode: 111
+        keyCode: 65 # A
+        which: 65
+        charCode: 65
       } ))
-      console.log $('input', ele).val()
+
+      scope.$digest()
+      expect($input[0].value).toBe(defaultMask())
+
+    it 'should not allow letters into the date', ->
+      compile(ele)(scope)
+      scope.$digest()
+      $input = $('input', ele)
+
+      $input.focus().trigger(jQuery.Event( {
+        type: 'keypress'
+        keyCode: 65 # A
+        which: 65
+        charCode: 65
+      } ))
+
+      scope.$digest()
+      expect($input[0].value).toBe(defaultMask())
 
 
 
