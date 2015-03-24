@@ -32,8 +32,14 @@ describe 'forty-date-picker: ', ->
     compile = $compile
     scope = $rootScope.$new()
 
+    scope.test = 'placeholder'
+    scope.name = 'duaneinput'
+    scope.is_disabled = false
+
     markup = '<forty-date-picker' +
                     ' ng-model="date"' +
+                    ' placeholder="test"' +
+                    ' name="name"' +
                     ' disabled="is_disabled"> ' +
             '</forty-date-picker>'
 
@@ -56,6 +62,12 @@ describe 'forty-date-picker: ', ->
     it 'should have a method to toggle open the datepicker', ->
       expect(iScope.open).toBeDefined()
 
+    it 'should have a placehodler', ->
+      expect(iScope.placeholder).toBeDefined()
+
+    it 'should have a name', ->
+      expect(iScope.name).toBeDefined()
+
 
   describe 'acceptable attributes and defaults', ->
     it 'should have the datepicker closed by default', ->
@@ -72,6 +84,12 @@ describe 'forty-date-picker: ', ->
 
     it 'should have a default for the date format', ->
       expect(iScope.format).toBe('MM/dd/yyyy')
+
+    it 'should have a disabled attribute on the scope', ->
+      compile(ele)(scope)
+      scope.$digest()
+      expect(iScope.disabled).toBeDefined()
+
 
   describe 'should have some elements on the rendered directive', ->
     it 'should have an input field', ->

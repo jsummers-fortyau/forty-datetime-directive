@@ -7,7 +7,10 @@ angular.module('fortyDate', [])
   scope:
     date:'=ngModel'
     disabled: '='
-  template: '<div class="input-group"><input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" ng-disabled="disabled" /><span class="input-group-btn"><button type="button" ng-disabled="disabled" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></div>'
+    name: '=?'
+    placeholder: '=?'
+  template: '<div class="input-group">'+
+    '<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" name="{{name}}" is-open="opened" placeholder="{{placeholder}}" ng-disabled="disabled" /><span class="input-group-btn"><button type="button" ng-disabled="disabled" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></div>'
   link: (scope, elem, attrs, ngModel)->
 
     # PRIVATE VAR ======================================================================================================
@@ -191,6 +194,7 @@ angular.module('fortyDate', [])
     # SCOPE ============================================================================================================
     scope.opened = false
     scope.format = 'MM/dd/yyyy'
+    scope.placeholder = scope.placeholder || '__/__/____' #TODO Get rid of these hardcoded things here
 
 
     ###*
@@ -215,7 +219,6 @@ angular.module('fortyDate', [])
 
     ngModelCtrl.$formatters.unshift (data)->
       #Model -> View
-      console.log ngModelCtrl
 
       #if scope.date is null
       #ngModelCtrl.$setViewValue(mask)
