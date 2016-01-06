@@ -131,7 +131,7 @@ angular.module('fortyDate', [])
       char_raw = el.value.replace(/\W/g, '').split('')
 
       insert_pos = pos-delimiter_cnt
-      if char_raw.indexOf('_') < insert_pos
+      if char_raw.indexOf('_') > -1 && char_raw.indexOf('_') < insert_pos
         insert_pos = char_raw.indexOf('_')
 
       # If we want to completely replace we pass null
