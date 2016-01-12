@@ -10,8 +10,8 @@ Pushing Instructions
 Build:
 `grunt build`
 
-Bower:
 
+Bower:
 bower version [<newversion> | major | minor | patch]
 Run this in a package directory to bump the version and write the new data back to the bower.json file.
 
@@ -25,6 +25,10 @@ version options
 If supplied with --message (shorthand: -m) config option, bower will use it as a commit message when creating a version commit. If the message config contains %s then that will be replaced with the resulting version number. For example:
 
 $ bower version patch -m "Upgrade to %s for reasons"
+
+
+Commit:
+`git commit -m "Commit for bower"`
 
 
 Push:
