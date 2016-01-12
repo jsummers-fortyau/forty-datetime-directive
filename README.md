@@ -11,6 +11,10 @@ Build:
 `grunt build`
 
 
+Commit:
+`git commit -m "Commit built code"`
+
+
 Bower:
 bower version [<newversion> | major | minor | patch]
 Run this in a package directory to bump the version and write the new data back to the bower.json file.
@@ -27,12 +31,8 @@ If supplied with --message (shorthand: -m) config option, bower will use it as a
 $ bower version patch -m "Upgrade to %s for reasons"
 
 
-Commit:
-`git commit -m "Commit for bower"`
-
-
 Push:
-`git push`
+`git push --tags`
 
 
 Check:
