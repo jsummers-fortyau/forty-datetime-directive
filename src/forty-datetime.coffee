@@ -1,5 +1,5 @@
 angular.module('fortyDate', [])
-.directive("fortyDatePicker", ($filter, $window)->
+.directive("fortyDatePicker", ['$filter', '$window', ($filter, $window)->
   {
   require: "ngModel"
   restrict: "E"
@@ -227,4 +227,4 @@ angular.module('fortyDate', [])
       return data
 
   }
-)
+])

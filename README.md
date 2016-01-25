@@ -8,7 +8,7 @@ Pushing Instructions
 ====================
 
 Build:
-`grunt build`
+`grunt defaultci`
 
 
 Commit:
