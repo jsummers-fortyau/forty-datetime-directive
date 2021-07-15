@@ -8,9 +8,10 @@ angular.module('fortyDate', [])
     date:'=ngModel'
     disabled: '='
     name: '=?'
-    placeholder: '=?'
+    placeholder: '=?',
+    options: '=?'
   template: '<div class="input-group">'+
-    '<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="date" name="{{name}}" is-open="opened" placeholder="{{placeholder}}" ng-disabled="disabled" /><span class="input-group-btn"><button type="button" ng-disabled="disabled" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></div>'
+    '<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="date" name="{{name}}" is-open="opened" placeholder="{{placeholder}}" ng-disabled="disabled" /><span class="input-group-btn"><button type="button" ng-disabled="disabled" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></div>'
   link: (scope, elem, attrs, ngModel)->
 
     # PRIVATE VAR ======================================================================================================

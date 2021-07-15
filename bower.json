@@ -2,7 +2,7 @@
   "name": "forty-datetime-directive",
   "description": "Date and time directive",
   "main": "dist/forty-datetime.js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "dependencies": {
     "angular": "~1.2.0",
     "momentjs": "~2.9.0",
